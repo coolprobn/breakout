@@ -4,6 +4,9 @@
 	var $ball = document.getElementById('ball')
 
 	function Player(){
+		var $player = document.createElement('div');
+		$player.id = 'player';
+		$gameWindow.appendChild($player);
 		$player.style.top = 380 + 'px';
     	$player.style.left = 250 + 'px';
     	var posLeft = 250;
@@ -34,6 +37,8 @@
        	});
 
        	this.checkCollision = function(another){
+       		var posLeft = 250;
+    		var posTop = 380;
 			var selfTop = self.posTop;
 			var anotherTop = another.posTop;
 			var selfLeft = self.posLeft;
@@ -42,11 +47,11 @@
 			var anotherRight = anotherLeft + 30;
 			var selfBottom = self.posTop + 20;
 			var anotherBottom = anotherTop + 30;
+			debugger
 
 			if(selfLeft<=anotherRight&&selfRight>=anotherLeft&&selfTop==anotherBottom){
 				debugger
-				move();
-			
+				
 			};
 		};
 
@@ -61,6 +66,8 @@
 			$gameWindow.appendChild($brick);
 			};
 		};
+		var posTop = $brick.style.top;
+		var posLeft = $brick.style.left;
 		this.checkBrickCollision = function(another){
 			var selfTop = self.posTop;
 			var anotherTop = another.posTop;
@@ -70,10 +77,18 @@
 			var anotherRight = anotherLeft + 30;
 			var selfBottom = self.posTop + 20;
 			var anotherBottom = anotherTop + 30;
+			debugger
+
+			if(selfLeft<anotherRight&&selfRight>anotherLeft&&selfTop<anotherBottom&&selfBottom>anotherTop){
+			debugger
+			}
 		}
 	};
 	
 	function Ball(){
+		var $ball = document.createElement('div');
+		$ball.id = 'ball';
+		$gameWindow.appendChild($ball);
     	this.yVelocity = 0;
 		this.xVelocity = 0;
    		this.posLeft = 310;
@@ -100,7 +115,7 @@
         		self.yVelocity = -10;
         	};
         	if(self.posTop == 370){
-		   		self.yVelocity = -10;	
+		   		self.yVelocity = -10;//game-over	
 			};
 
 		};
@@ -120,10 +135,7 @@
 	var p = new Player();
 	var b = new Brick();
 	var ball = new Ball();
-	var check = function(){
-		p.checkCollision(ball);	
-	}
-	check();
+	p.checkCollision(ball);	
 	var checkBrickPCollision = function(){
 		b.checkBrickCollision(ball);
 	}
