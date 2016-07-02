@@ -5,6 +5,7 @@ function All(){
 	var $player = document.getElementById('player');
 	var $ball = document.getElementById('ball');
 	var $scoreWindow = document.getElementById('score-window');
+	var $score = document.getElementById('score');
 	var count = 0;
 	var intervalId;
 	var launch = false;
@@ -19,10 +20,10 @@ function All(){
 		var $player = document.createElement('div');
 		$player.id = 'player';
 		$gameWindow.appendChild($player);
-		$player.style.top = 380 + 'px';
+		$player.style.top = 430 + 'px';
     	$player.style.left = 250 + 'px';
     	this.posLeft = 250;
-    	this.posTop = 380;
+    	this.posTop = 430;
     	var self = this;
 
 		var goRight = function(){
@@ -58,6 +59,7 @@ function All(){
 			var anotherRight = anotherLeft + 30;
 			var selfBottom = self.posTop + 20;
 			var anotherBottom = anotherTop + 30;
+	
 
 			if(selfLeft<=anotherRight&&selfRight>=anotherLeft&&selfTop==anotherBottom){
 				if(launch==true){
@@ -93,7 +95,7 @@ function All(){
 		this.yVelocity = 0;
 		this.xVelocity = 0;
    		this.posLeft = 310;
-    	this.posTop = 350;
+    	this.posTop = 400;
    	 	var self = this;
 
 		self.move = function(){
@@ -102,6 +104,7 @@ function All(){
 			p.checkCollision(b);
 			self.checkVerticalCollision();
 			self.checkHorizontalCollision();
+			
         	self.posTop += self.yVelocity;
         	self.posLeft += self.xVelocity;
         	$ball.style.top = self.posTop + 'px';
@@ -112,14 +115,14 @@ function All(){
 		intervalId = setInterval(self.move,50);
 
 		self.checkVerticalCollision = function(){
-			if(self.posTop == 0){
+			if(self.posTop == 50){
 		   		self.yVelocity = 10;	
 			};
-        	if (self.posTop == 350 && self.posLeft == 310) {
+        	if (self.posTop == 400 && self.posLeft == 310) {
         		self.yVelocity = -10;
         	};
         	
-        	if(self.posTop == 370){
+        	if(self.posTop == 420){
 		   		alert('game-over');
 		   		document.location.reload();
 
@@ -128,7 +131,7 @@ function All(){
 		};
 
 		self.checkHorizontalCollision = function(){
-			if (self.posLeft == 310 && self.posTop == 350) {
+			if (self.posLeft == 310 && self.posTop == 400) {
         		self.xVelocity = -10;
         	}
         	if (self.posLeft == 0) {
@@ -147,13 +150,11 @@ function All(){
 
 	function Brick(){
 		var $brick = [];
-		this.posTop = 0;
-		this.posLeft = 0;
+		this.posTop = 50;
+		this.posLeft = 5;
 		var self = this;
 		var i;
 		var j;
-		var selfTop = 0;
-		var selfLeft = 0;
 		
 		for(i=0;i<3;i++){
 			$brick[i] = [];
@@ -166,7 +167,7 @@ function All(){
 				self.posLeft = self.posLeft + 98;
 			}
 			if(i<3){
-				self.posLeft = 0;	
+				self.posLeft = 5;	
 				self.posTop = self.posTop + 30;
 			}
 		}
@@ -175,7 +176,7 @@ function All(){
 			for(i=0;i<3;i++){
 				for(j=0;j<6;j++){
 					if(i==0)
-						selfTop = 0;
+						selfTop = 50;
 		
 					var anotherTop = another.posTop;
 					if(j==0)
@@ -191,9 +192,11 @@ function All(){
 
 					if(selfLeft<=anotherRight&&selfRight>=anotherLeft&&selfBottom==anotherTop){
 						if($brick[i][j].style.display != 'none'){
+							//debugger
 							$brick[i][j].style.display = 'none';
 							count += 1;
-							$scoreWindow.innerHTML = count;
+							$score.innerHTML = count;
+							$scoreWindow.appendChild($score);
 							brickCol = true;
 								
 						}	
@@ -211,9 +214,13 @@ function All(){
 				clearInterval(rightIntervalId);
 				clearInterval(brickIntervalId);
 				another.yVelocity = 10;
-				debugger
 				brickIntervalId = setInterval(another.move,50);
 				brickCol = false;
+			}
+
+			if(count==18){
+				alert('Arkako ghar ko 18 ota itta fodis aba paisa ley');
+				document.location.reload();
 			}
 		}
 	}

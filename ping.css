@@ -9,7 +9,7 @@ body{
 
 #game-window {
 	background-color: white;
-	height: 400px;
+	height: 450px;
 	width: 600px;
 	border: 1px solid black;
 	position: relative;
@@ -49,21 +49,26 @@ body{
 }
 
 #score-window{
-	height: 30px;
-	width: 130px;
-	left: 470px;
-	top: 270px;
+	height: 50px;
+	width: 600px;
+	left: 0px;
 	position: absolute;
 	z-index: 1;
-	background-color: crimson;
+}
+
+.score-label {
+	font: italic bold 20px/30px Georgia, serif;
+	width: 100px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
 }
 
 #score {
-	font: bold 12px/30px Georgia, serif;
-	width: 70px;
-	text-align: left;
+	font: bold 16px/30px Georgia, serif;
+	width: 30px;
+	
 	display: inline-block;
 	position: absolute;
-	top: 2px;
-	left: 5px;
+	left: 130px;
 }
